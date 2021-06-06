@@ -1,22 +1,22 @@
 import { Context } from 'egg';
 
-export function validateAccountPostBody() {
-  return async (ctx: Context, next: () => {}) => {
-    try {
-      ctx.validate(
-        {
-          email: {
-            type: 'string',
-            required: true,
-            allowEmpty: true,
-          },
+export async function validateAccountPostBody(
+  ctx: Context,
+  next: () => Promise<any>,
+): Promise<any> {
+  try {
+    ctx.validate(
+      {
+        email: {
+          type: 'string',
+          required: true,
+          allowEmpty: true,
         },
-        ctx.request.body,
-      );
-    } catch (error) {
-      throw error;
-    }
-
-    next();
-  };
+      },
+      ctx.request.body,
+    );
+    await next();
+  } catch (error) {
+    throw error;
+  }
 }
