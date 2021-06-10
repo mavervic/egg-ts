@@ -3,9 +3,13 @@
 
 import 'egg';
 import ExportHome from '../../../app/controller/home';
+import ExportDtoAccount from '../../../app/controller/dto/account';
 
 declare module 'egg' {
   interface IController {
     home: ExportHome;
+    dto: {
+      account: ExportDtoAccount;
+    };
   }
 }

@@ -12,4 +12,10 @@ export default (app: Application) => {
     middleware.validateParams.validateAccountPostBody,
     controller.home.signin,
   );
+
+  router.post(
+    '/account/signinGetToken',
+    middleware.validateParams.validateAccountPostBody,
+    controller.home.signinGetToken,
+  );
 };

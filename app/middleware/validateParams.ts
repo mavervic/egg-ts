@@ -7,10 +7,16 @@ export async function validateAccountPostBody(
   try {
     ctx.validate(
       {
-        email: {
+        account: {
           type: 'string',
           required: true,
-          allowEmpty: true,
+        },
+        password: {
+          type: 'string',
+          required: true,
+        },
+        nickname: {
+          type: 'string?',
         },
       },
       ctx.request.body,

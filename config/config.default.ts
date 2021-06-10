@@ -15,6 +15,10 @@ export default (appInfo: EggAppInfo) => {
     sourceUrl: `https://github.com/eggjs/examples/tree/master/${appInfo.name}`,
   };
 
+  exports.jwt = {
+    secret: '123456',
+  };
+
   // the return config will combines to EggAppConfig
   return {
     ...config,
