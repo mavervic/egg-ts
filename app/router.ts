@@ -18,4 +18,10 @@ export default (app: Application) => {
     middleware.validateParams.validateAccountPostBody,
     controller.home.signinGetToken,
   );
+
+  router.get(
+    '/user/:id',
+    middleware.validateUser.validateParams,
+    controller.user.getUserById,
+  );
 };

@@ -2,17 +2,17 @@ import { Service } from 'egg';
 
 const UserAttributes = ['id', 'email', 'createdAt'];
 const LevelAttributes = ['name'];
+export default class UserService extends Service {
+  public async countUserAll() {
+    return await this.ctx.model.User.count();
+  }
 
-/**
- * Test Service
- */
-export default class Account extends Service {
-  public async findOneByUserId(id: string) {
+  public async findOneByUserId(id: number) {
     return await this.ctx.model.User.findOne({
       attributes: UserAttributes,
       where: { id },
       include: {
-        model: this.ctx.model.level,
+        model: this.ctx.model.Level,
         attributes: LevelAttributes,
       },
     });
@@ -22,28 +22,43 @@ export default class Account extends Service {
     id: number,
     { email, nickname }: { email: string; nickname: string },
   ) {
-    return await this.ctx.model.User.updeate(
+    const result = await this.ctx.model.User.update(
       { email, nickname },
-      { where: { id } },
+      {
+        where: { id },
+      },
     );
+    return result[0];
   }
 
   public async createNew({
     email,
     nickname,
+    password,
+    levelId,
   }: {
     email: string;
     nickname: string;
+    password: string;
+    levelId: number;
   }) {
-    return await this.ctx.model.User.updeate({
+    return await this.ctx.model.User.create({
       email,
       nickname,
+      password,
+      levelId,
     });
   }
 
   public async deleteOneByUserId(id: number) {
-    return await this.ctx.model.User.destory({
+    const result = await this.ctx.model.User.destroy({
       where: { id },
     });
+
+    return result;
+  }
+
+  async deleteAllUser() {
+    return await this.ctx.model.User.destroy({ where: {} });
   }
 }
